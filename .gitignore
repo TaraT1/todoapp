@@ -1,1 +1,3 @@
 recapp.py
+venv/
+__pycache__/
