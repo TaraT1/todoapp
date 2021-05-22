@@ -13,7 +13,13 @@ class Todo(db.Model):
 def __repr__(self):
     return f'<Todo {self.id} {self.description}>'
 
-db.create_all()
+@app.route('/todos/create', method=['POST'])
+def create_todo():
+    description = request.form.get('description', '')
+    todo = Todo(description=description)
+    db.session.add(todo)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 @app.route('/')
 def index():
