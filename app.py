@@ -13,18 +13,20 @@ class Todo(db.Model):
 def __repr__(self):
     return f'<Todo {self.id} {self.description}>'
 
-    #db.create_all()
+db.create_all()
 
 @app.route('/todos/create', methods=['POST'])
 def create_todo():
-    #Modify for json: description = request.form.get('description', '')
-    description = request.get_json()['description']
+    description = request.form.get('description', '')
+    #description = request.get_json()['description']
     todo = Todo(description=description)
     db.session.add(todo)
     db.session.commit()
-    return jsonify({
-        'description': todo.description
-    })
+    return redirect(url_for('index'))
+    #return jsonify({
+    #    'description
+    #': todo.description
+    #})
     
 @app.route('/')
 def index():
